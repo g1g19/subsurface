@@ -158,13 +158,16 @@ void get_dive_gas(struct dive *dive, int *o2_p, int *he_p, int *o2low_p)
 			o2 = O2_IN_AIR;
 		if (o2 < mino2)
 			mino2 = o2;
-		if (he > maxhe)
-			goto newmax;
+		if (he > maxhe) {
+			maxhe = he;
+			maxo2 = o2;
+			continue;
+		}
 		if (he < maxhe)
 			continue;
 		if (o2 <= maxo2)
 			continue;
-newmax:
+
 		maxhe = he;
 		maxo2 = o2;
 	}
